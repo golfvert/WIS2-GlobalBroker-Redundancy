@@ -25,8 +25,8 @@ The repo has been cloned from the official NodeRed repository.
 ## What does it do ?
 
 1. Listen to subscribed topics from WIS2Node and other Global Brokers (one subscription per container)
-2. Every 2s each container publishes on the *WIS2 Node centre_id* used as redis key, its UID and the timestamp.
-3. Every 10s each container verifies if its unique identifier is the lowest of all containers for this key. If yes, it stays *primary* or becomes the *primary* and messages stored in the holding queue are published. On *secondary* the holding queue is flushed.
+2. Every 2s each container publishes on the *WIS2 Node centre_id* used as redis key, its UUID and the timestamp.
+3. Every 10s each container verifies if its unique identifier is the lowest of all containers for this key. If yes, it stays *primary* or becomes the *primary* and messages stored in the holding queue are released. On *secondary* the holding queue is flushed.
 4. Optionally verify/discard/ignore the message for its validity compared to approved message format
 5. Look at the `id` in the message. 
 6. Through a redis request check if that `id` has already been seen in the last 15 minutes. If yes, simply discard the message
