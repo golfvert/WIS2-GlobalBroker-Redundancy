@@ -3,16 +3,17 @@
 The code in this repository is to provide a reference implementation of a Global Broker as defined in the (draft) technical specification of WIS2. 
 See https://community.wmo.int/en/WIS2_Technical_Specification_Guidance
 
-This is the second attempt to provide a reference implementation of the AntiLoop feature that is required for a Global Broker.
+This is the second version of a reference implementation of the AntiLoop feature that is part of a Global Broker.
 It has been built reusing the vast majority of the first version of the tool available here: https://github.com/golfvert/WIS2-GlobalBroker-NodeRed
 
-It is considered that providing a cluster of an MQTT broker is a key component of a Global Broker. So, this is out of scope of this tool.
+It is considered that providing a cluster of an MQTT broker is a key component of a Global Broker. 
 
 However, unlike the initial version, this ones add redundancy where needed:
-- It uses an *available* redis cluster 
-- Each instance of the antiloop broker can be run multiple times (eg in a docker swarm setup with redundancy >= 2 ) toward the same WIS2 Node. Each instance will subscribe to the remote broker and will process the messages received only once. The containers are running in an active/active more for the subscription point of view but in an active/passive point of view for the processing. 
+- It uses an *available* redis cluster (See https://redis.io/docs/management/scaling/ on how to create such a cluster)
+- Each instance of the antiloop docker container can be run multiple times (eg in a docker swarm environment with redundancy >= 2 ) toward the same WIS2 Node. Each instance will subscribe to the remote broker and only the *primary* will process the messages. The containers are running in an active/active more for the subscription point of view but in an active/passive point of view for the processing. 
 
-Keeping two active subscription guarantee that no message will be lost in case of failure of one of the instance of the container.
+Keeping two active subscription guarantee that no message will be lost in case of failure of one of the instance of the container. Messages on the *secondary* container(s) are queued to allow promotion to *primary* without message loss.
+The election procedure uses the redis cluster.
 
 The repo has been cloned from the official NodeRed repository.
 
@@ -24,11 +25,13 @@ The repo has been cloned from the official NodeRed repository.
 ## What does it do ?
 
 1. Listen to subscribed topics from WIS2Node and other Global Brokers (one subscription per container)
-2. Optionally verify/discard/ignore the message for its validity compared to approved message format
-3. Look at the `id` in the message. 
-4. Through a redis request check if that `id` has already been seen in the last 15 minutes. If yes, simply discard the message
-5. If not, publish the message to the attached Global Broker
-6. It also provides prometheus metrics available at http://@IP:1880/metrics
+2. Every 2s each container publishes on the *WIS2 Node centre_id* used as redis key, its UID and the timestamp.
+3. Every 10s each container verifies if its unique identifier is the lowest of all containers for this key. If yes, it stays *primary* or becomes the *primary* and messages stored in the holding queue are published. On *secondary* the holding queue is flushed.
+4. Optionally verify/discard/ignore the message for its validity compared to approved message format
+5. Look at the `id` in the message. 
+6. Through a redis request check if that `id` has already been seen in the last 15 minutes. If yes, simply discard the message
+7. If not, publish the message to the attached Global Broker
+8. It also provides prometheus metrics available at http://@IP:1880/metrics
 
 ## How to use it ?
 
