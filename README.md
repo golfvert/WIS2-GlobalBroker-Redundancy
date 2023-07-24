@@ -1,4 +1,4 @@
-# WIS2-SwarmCluster
+# WIS2-GlobalBroker-Redundancy
 
 The code in this repository is to provide a reference implementation of a Global Broker as defined in the (draft) technical specification of WIS2. 
 See https://community.wmo.int/en/WIS2_Technical_Specification_Guidance
