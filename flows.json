@@ -557,7 +557,14 @@
                 "t": "set",
                 "p": "centreid",
                 "pt": "flow",
-                "to": "PROM_CENTRE_ID",
+                "to": "CENTRE_ID",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "country",
+                "pt": "flow",
+                "to": "COUNTRY",
                 "tot": "env"
             }
         ],
@@ -1247,7 +1254,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t   \"op\":\"inc\",\t   \"labels\":{\t      \"centre_id\": $env(\"PROM_CENTRE_ID\"),\t      \"country\": $env(\"PROM_COUNTRY\")\t   },\t   \"val\":1 \t}",
+                "to": "{\t   \"op\":\"inc\",\t   \"labels\":{\t      \"centre_id\": $flowContext(\"centreid\"),\t      \"country\": $flowContext(\"country\")\t   },\t   \"val\":1 \t}",
                 "tot": "jsonata"
             }
         ],
@@ -1286,7 +1293,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t   \"op\":\"inc\",\t   \"labels\":{\t      \"centre_id\": $env(\"PROM_CENTRE_ID\"),\t      \"country\": $env(\"PROM_COUNTRY\")\t   },\t   \"val\":1 \t}",
+                "to": "{\t   \"op\":\"inc\",\t   \"labels\":{\t      \"centre_id\": $flowContext(\"centreid\"),\t      \"country\": $flowContext(\"country\")\t   },\t   \"val\":1 \t}",
                 "tot": "jsonata"
             }
         ],
@@ -1505,7 +1512,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t   \"op\":\"inc\",\t   \"labels\":{\t      \"centre_id\": $env(\"PROM_CENTRE_ID\"),\t      \"country\": $env(\"PROM_COUNTRY\")\t   },\t   \"val\":1 \t}",
+                "to": "{\t   \"op\":\"inc\",\t   \"labels\":{\t      \"centre_id\": $flowContext(\"centreid\"),\t      \"country\": $flowContext(\"country\")\t   },\t   \"val\":1 \t}",
                 "tot": "jsonata"
             }
         ],
