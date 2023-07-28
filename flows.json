@@ -194,6 +194,34 @@
         "h": 282
     },
     {
+        "id": "704fe7a0a3413400",
+        "type": "group",
+        "z": "3af82246.3634ae",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "720bdf8b4f4fd2bc",
+            "c2e79e20b06839e6",
+            "3c5d87dbdc9a0a2c",
+            "507cce674d0f12d6",
+            "5f6c31b4abc8077c",
+            "d17844f69c0a434e",
+            "93db13a150783f1f",
+            "3484111e0c147f1d"
+        ],
+        "x": 154,
+        "y": 1699,
+        "w": 452,
+        "h": 222
+    },
+    {
         "id": "ac0560c0180e4641",
         "type": "mqtt-broker",
         "name": "Publisher",
@@ -2233,7 +2261,8 @@
         "links": [
             "fbf08e5fe9f4d457",
             "de8091ab1ae779f6",
-            "48ea516b2cc04255"
+            "48ea516b2cc04255",
+            "93db13a150783f1f"
         ],
         "x": 835,
         "y": 1540,
@@ -2249,7 +2278,8 @@
         "links": [
             "2a717a1429576405",
             "de8091ab1ae779f6",
-            "48ea516b2cc04255"
+            "48ea516b2cc04255",
+            "3484111e0c147f1d"
         ],
         "x": 835,
         "y": 1580,
@@ -2581,5 +2611,167 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "720bdf8b4f4fd2bc",
+        "type": "comment",
+        "z": "3af82246.3634ae",
+        "g": "704fe7a0a3413400",
+        "name": "Health check",
+        "info": "",
+        "x": 270,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "c2e79e20b06839e6",
+        "type": "http in",
+        "z": "3af82246.3634ae",
+        "g": "704fe7a0a3413400",
+        "name": "",
+        "url": "/primary",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 250,
+        "y": 1800,
+        "wires": [
+            [
+                "507cce674d0f12d6"
+            ]
+        ]
+    },
+    {
+        "id": "3c5d87dbdc9a0a2c",
+        "type": "http response",
+        "z": "3af82246.3634ae",
+        "g": "704fe7a0a3413400",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 530,
+        "y": 1800,
+        "wires": []
+    },
+    {
+        "id": "507cce674d0f12d6",
+        "type": "change",
+        "z": "3af82246.3634ae",
+        "g": "704fe7a0a3413400",
+        "name": "Response",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "code",
+                "tot": "flow"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 1800,
+        "wires": [
+            [
+                "3c5d87dbdc9a0a2c"
+            ]
+        ]
+    },
+    {
+        "id": "5f6c31b4abc8077c",
+        "type": "change",
+        "z": "3af82246.3634ae",
+        "g": "704fe7a0a3413400",
+        "name": "200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "code",
+                "pt": "flow",
+                "to": "200",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 1840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d17844f69c0a434e",
+        "type": "change",
+        "z": "3af82246.3634ae",
+        "g": "704fe7a0a3413400",
+        "name": "404",
+        "rules": [
+            {
+                "t": "set",
+                "p": "code",
+                "pt": "flow",
+                "to": "404",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 1880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "93db13a150783f1f",
+        "type": "link in",
+        "z": "3af82246.3634ae",
+        "g": "704fe7a0a3413400",
+        "name": "Is primary",
+        "links": [
+            "bf84f00af773ae55"
+        ],
+        "x": 240,
+        "y": 1840,
+        "wires": [
+            [
+                "5f6c31b4abc8077c"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "3484111e0c147f1d",
+        "type": "link in",
+        "z": "3af82246.3634ae",
+        "g": "704fe7a0a3413400",
+        "name": "Is secondary",
+        "links": [
+            "088242062a8edf86"
+        ],
+        "x": 250,
+        "y": 1880,
+        "wires": [
+            [
+                "d17844f69c0a434e"
+            ]
+        ],
+        "l": true
     }
 ]
