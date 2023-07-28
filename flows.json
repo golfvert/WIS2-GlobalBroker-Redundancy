@@ -2773,21 +2773,5 @@
             ]
         ],
         "l": true
-    },
-    {
-        "id": "37b6574439acb687",
-        "type": "debug",
-        "z": "3af82246.3634ae",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 960,
-        "y": 80,
-        "wires": []
     }
 ]
