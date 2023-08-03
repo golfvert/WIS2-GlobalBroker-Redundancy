@@ -8,7 +8,7 @@ It has been built reusing the vast majority of the first version of the tool ava
 
 It is considered that providing a cluster of an MQTT broker is a key component of a Global Broker. 
 
-However, unlike the initial version, this ones add redundancy where needed:
+However, unlike the initial version, this one adds redundancy where needed:
 - It uses an *available* redis cluster (See https://redis.io/docs/management/scaling/ on how to create such a cluster)
 - Each instance of the antiloop docker container can be run multiple times (eg in a docker swarm environment with redundancy >= 2 ) toward the same WIS2 Node. Each instance will subscribe to the remote broker and only the *primary* will process the messages. The containers are running in an active/active more for the subscription point of view but in an active/passive point of view for the processing. 
 
