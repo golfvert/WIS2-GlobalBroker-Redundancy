@@ -29,14 +29,12 @@
             "6c2aa04153a511ed",
             "051f1aadd5a065d6",
             "325194965e6c002b",
-            "5ee4f0d584a80393",
-            "59a947f26e552a68",
-            "d4393e864502562a"
+            "5ee4f0d584a80393"
         ],
         "x": 154,
         "y": 79,
         "w": 652,
-        "h": 389.5
+        "h": 322
     },
     {
         "id": "2cac6541d3b7ad29",
@@ -453,8 +451,7 @@
                 "c825801f7eec98ed",
                 "9e6943f9ea115417",
                 "437c51adccb5ac31",
-                "325194965e6c002b",
-                "59a947f26e552a68"
+                "325194965e6c002b"
             ]
         ]
     },
@@ -596,6 +593,13 @@
                 "p": "country",
                 "pt": "flow",
                 "to": "COUNTRY",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "host",
+                "pt": "flow",
+                "to": "WHOAMI",
                 "tot": "env"
             }
         ],
@@ -1119,7 +1123,7 @@
         "name": "Publisher",
         "topic": "",
         "qos": "2",
-        "retain": "true",
+        "retain": "false",
         "respTopic": "",
         "contentType": "",
         "userProps": "",
@@ -1755,7 +1759,7 @@
         "repeat": "2",
         "crontab": "",
         "once": true,
-        "onceDelay": "0.5",
+        "onceDelay": "3",
         "topic": "",
         "payload": "",
         "payloadType": "date",
@@ -1830,7 +1834,7 @@
         "repeat": "10",
         "crontab": "",
         "once": true,
-        "onceDelay": "1",
+        "onceDelay": "5",
         "topic": "",
         "x": 250,
         "y": 1580,
@@ -2559,55 +2563,6 @@
         "reg": false,
         "x": 570,
         "y": 360,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "59a947f26e552a68",
-        "type": "exec",
-        "z": "3af82246.3634ae",
-        "g": "3f9319440dce9b0d",
-        "command": "hostname",
-        "addpay": "",
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "",
-        "x": 440,
-        "y": 420,
-        "wires": [
-            [
-                "d4393e864502562a"
-            ],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "d4393e864502562a",
-        "type": "change",
-        "z": "3af82246.3634ae",
-        "g": "3f9319440dce9b0d",
-        "name": "Hostname",
-        "rules": [
-            {
-                "t": "set",
-                "p": "hostname",
-                "pt": "flow",
-                "to": "$substring(payload,0,$length(payload)-1)",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 590,
-        "y": 420,
         "wires": [
             []
         ]
