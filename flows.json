@@ -154,12 +154,16 @@
             "ff38c27547f57df5",
             "4ce66cb6c1cd331a",
             "b6f1b5afd8f26926",
-            "b0058fcf19b55fbc"
+            "b0058fcf19b55fbc",
+            "f3d4ba0b9a7be8a7",
+            "d198169662f22d87",
+            "9a37b1f7bba82a4e",
+            "3cf014aeacc0cf78"
         ],
         "x": 154,
         "y": 1399,
         "w": 1252,
-        "h": 282
+        "h": 302
     },
     {
         "id": "704fe7a0a3413400",
@@ -185,7 +189,7 @@
             "3484111e0c147f1d"
         ],
         "x": 154,
-        "y": 1699,
+        "y": 1719,
         "w": 452,
         "h": 222
     },
@@ -377,6 +381,13 @@
                 "p": "topic_pubsub",
                 "pt": "flow",
                 "to": "$env(\"MQTT_MONIT_TOPIC\")  & \"/pubsub\"",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic_container",
+                "pt": "flow",
+                "to": "$env(\"MQTT_MONIT_TOPIC\")  & \"/container\"",
                 "tot": "jsonata"
             },
             {
@@ -1690,10 +1701,12 @@
         "wires": [
             [
                 "b6e7189343a699c5",
-                "0c40af1e53657c10"
+                "0c40af1e53657c10",
+                "f3d4ba0b9a7be8a7"
             ],
             [
-                "97e2e9730afa6411"
+                "97e2e9730afa6411",
+                "9a37b1f7bba82a4e"
             ]
         ]
     },
@@ -1714,7 +1727,7 @@
         "repair": false,
         "outputs": 1,
         "x": 760,
-        "y": 1480,
+        "y": 1460,
         "wires": [
             [
                 "7396f17b4d5a8acc"
@@ -1742,7 +1755,7 @@
         "to": "",
         "reg": false,
         "x": 890,
-        "y": 1480,
+        "y": 1460,
         "wires": [
             [
                 "43e8195bba447330"
@@ -1784,7 +1797,7 @@
         "payloadType": "json",
         "block": false,
         "x": 1010,
-        "y": 1480,
+        "y": 1460,
         "wires": [
             []
         ]
@@ -2329,7 +2342,7 @@
         "name": "Health check",
         "info": "",
         "x": 270,
-        "y": 1740,
+        "y": 1760,
         "wires": []
     },
     {
@@ -2343,7 +2356,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 250,
-        "y": 1800,
+        "y": 1820,
         "wires": [
             [
                 "507cce674d0f12d6"
@@ -2359,7 +2372,7 @@
         "statusCode": "",
         "headers": {},
         "x": 530,
-        "y": 1800,
+        "y": 1820,
         "wires": []
     },
     {
@@ -2388,7 +2401,7 @@
         "to": "",
         "reg": false,
         "x": 400,
-        "y": 1800,
+        "y": 1820,
         "wires": [
             [
                 "3c5d87dbdc9a0a2c"
@@ -2416,7 +2429,7 @@
         "to": "",
         "reg": false,
         "x": 390,
-        "y": 1840,
+        "y": 1860,
         "wires": [
             []
         ]
@@ -2442,7 +2455,7 @@
         "to": "",
         "reg": false,
         "x": 390,
-        "y": 1880,
+        "y": 1900,
         "wires": [
             []
         ]
@@ -2457,7 +2470,7 @@
             "bf84f00af773ae55"
         ],
         "x": 240,
-        "y": 1840,
+        "y": 1860,
         "wires": [
             [
                 "5f6c31b4abc8077c"
@@ -2475,7 +2488,7 @@
             "088242062a8edf86"
         ],
         "x": 250,
-        "y": 1880,
+        "y": 1900,
         "wires": [
             [
                 "d17844f69c0a434e"
@@ -2746,6 +2759,114 @@
         "broker": "ac0560c0180e4641",
         "x": 780,
         "y": 440,
+        "wires": []
+    },
+    {
+        "id": "f3d4ba0b9a7be8a7",
+        "type": "change",
+        "z": "3af82246.3634ae",
+        "g": "af64ebcc5f745fbb",
+        "name": "Primary",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t   \"centreid\": $flowContext(\"centreid\"),\t   \"primary\": $flowContext(\"host\"),\t   \"timestamp\": $millis()\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "topic_container",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 1500,
+        "wires": [
+            [
+                "d198169662f22d87"
+            ]
+        ]
+    },
+    {
+        "id": "d198169662f22d87",
+        "type": "mqtt out",
+        "z": "3af82246.3634ae",
+        "g": "af64ebcc5f745fbb",
+        "name": "Publisher",
+        "topic": "",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "ac0560c0180e4641",
+        "x": 900,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "9a37b1f7bba82a4e",
+        "type": "change",
+        "z": "3af82246.3634ae",
+        "g": "af64ebcc5f745fbb",
+        "name": "Secondary",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t   \"centreid\": $flowContext(\"centreid\"),\t   \"secondary\": $flowContext(\"host\"),\t   \"timestamp\": $millis()\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "topic_container",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 1660,
+        "wires": [
+            [
+                "3cf014aeacc0cf78"
+            ]
+        ]
+    },
+    {
+        "id": "3cf014aeacc0cf78",
+        "type": "mqtt out",
+        "z": "3af82246.3634ae",
+        "g": "af64ebcc5f745fbb",
+        "name": "Publisher",
+        "topic": "",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "ac0560c0180e4641",
+        "x": 920,
+        "y": 1660,
         "wires": []
     }
 ]
