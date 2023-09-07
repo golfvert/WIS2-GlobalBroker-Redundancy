@@ -155,10 +155,10 @@
             "4ce66cb6c1cd331a",
             "b6f1b5afd8f26926",
             "b0058fcf19b55fbc",
-            "f3d4ba0b9a7be8a7",
-            "d198169662f22d87",
-            "9a37b1f7bba82a4e",
-            "3cf014aeacc0cf78"
+            "1fb5a0fd9a1d867e",
+            "11e84d462d0da702",
+            "f0bb2e3b8a4db6ac",
+            "9da53c72d3d77292"
         ],
         "x": 154,
         "y": 1399,
@@ -1702,11 +1702,11 @@
             [
                 "b6e7189343a699c5",
                 "0c40af1e53657c10",
-                "f3d4ba0b9a7be8a7"
+                "1fb5a0fd9a1d867e"
             ],
             [
                 "97e2e9730afa6411",
-                "9a37b1f7bba82a4e"
+                "11e84d462d0da702"
             ]
         ]
     },
@@ -2762,7 +2762,7 @@
         "wires": []
     },
     {
-        "id": "f3d4ba0b9a7be8a7",
+        "id": "1fb5a0fd9a1d867e",
         "type": "change",
         "z": "3af82246.3634ae",
         "g": "af64ebcc5f745fbb",
@@ -2772,15 +2772,13 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t   \"centreid\": $flowContext(\"centreid\"),\t   \"primary\": $flowContext(\"host\"),\t   \"timestamp\": $millis()\t}",
+                "to": "[\t   \"docker\",\t   $flowContext(\"centreid\") & \"_primary\",\t   $flowContext(\"host\"),\t   $flowContext(\"centreid\") & \"_primary_time\",\t   $millis()\t]",
                 "tot": "jsonata"
             },
             {
-                "t": "set",
+                "t": "delete",
                 "p": "topic",
-                "pt": "msg",
-                "to": "topic_container",
-                "tot": "flow"
+                "pt": "msg"
             }
         ],
         "action": "",
@@ -2792,31 +2790,12 @@
         "y": 1500,
         "wires": [
             [
-                "d198169662f22d87"
+                "9da53c72d3d77292"
             ]
         ]
     },
     {
-        "id": "d198169662f22d87",
-        "type": "mqtt out",
-        "z": "3af82246.3634ae",
-        "g": "af64ebcc5f745fbb",
-        "name": "Publisher",
-        "topic": "",
-        "qos": "2",
-        "retain": "true",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "ac0560c0180e4641",
-        "x": 900,
-        "y": 1500,
-        "wires": []
-    },
-    {
-        "id": "9a37b1f7bba82a4e",
+        "id": "11e84d462d0da702",
         "type": "change",
         "z": "3af82246.3634ae",
         "g": "af64ebcc5f745fbb",
@@ -2826,15 +2805,13 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t   \"centreid\": $flowContext(\"centreid\"),\t   \"secondary\": $flowContext(\"host\"),\t   \"timestamp\": $millis()\t}",
+                "to": "[    \"docker\",    $flowContext(\"centreid\") & \"_secondary\",    $flowContext(\"host\"),    $flowContext(\"centreid\") & \"_secondary_time\",    $millis() ]",
                 "tot": "jsonata"
             },
             {
-                "t": "set",
+                "t": "delete",
                 "p": "topic",
-                "pt": "msg",
-                "to": "topic_container",
-                "tot": "flow"
+                "pt": "msg"
             }
         ],
         "action": "",
@@ -2846,27 +2823,46 @@
         "y": 1660,
         "wires": [
             [
-                "3cf014aeacc0cf78"
+                "f0bb2e3b8a4db6ac"
             ]
         ]
     },
     {
-        "id": "3cf014aeacc0cf78",
-        "type": "mqtt out",
+        "id": "f0bb2e3b8a4db6ac",
+        "type": "redis-command",
         "z": "3af82246.3634ae",
         "g": "af64ebcc5f745fbb",
-        "name": "Publisher",
+        "server": "dd410bebb1e18cb0",
+        "command": "HSET",
+        "name": "Set",
         "topic": "",
-        "qos": "2",
-        "retain": "true",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "ac0560c0180e4641",
-        "x": 920,
+        "params": "[]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 910,
         "y": 1660,
-        "wires": []
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9da53c72d3d77292",
+        "type": "redis-command",
+        "z": "3af82246.3634ae",
+        "g": "af64ebcc5f745fbb",
+        "server": "dd410bebb1e18cb0",
+        "command": "HSET",
+        "name": "Set",
+        "topic": "",
+        "params": "[]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 890,
+        "y": 1500,
+        "wires": [
+            []
+        ]
     }
 ]
