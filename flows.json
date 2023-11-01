@@ -283,7 +283,7 @@
         "type": "prometheus-metric-config",
         "name": "wmo_wis2_gb_messages_received",
         "help": "Number of messages received",
-        "labels": "centre_id, country",
+        "labels": "centre_id",
         "mtype": "counter"
     },
     {
@@ -291,7 +291,7 @@
         "type": "prometheus-metric-config",
         "name": "wmo_wis2_gb_messages_published",
         "help": "Number of message published",
-        "labels": "centre_id, country",
+        "labels": "centre_id",
         "mtype": "counter"
     },
     {
@@ -299,7 +299,7 @@
         "type": "prometheus-metric-config",
         "name": "wmo_wis2_gb_messages_invalid",
         "help": "Number of invalid messages",
-        "labels": "centre_id,country",
+        "labels": "centre_id",
         "mtype": "counter"
     },
     {
@@ -395,13 +395,6 @@
                 "p": "centreid",
                 "pt": "flow",
                 "to": "CENTRE_ID",
-                "tot": "env"
-            },
-            {
-                "t": "set",
-                "p": "country",
-                "pt": "flow",
-                "to": "COUNTRY",
                 "tot": "env"
             },
             {
@@ -1098,7 +1091,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t   \"op\":\"inc\",\t   \"labels\":{\t      \"centre_id\": $flowContext(\"centreid\"),\t      \"country\": $flowContext(\"country\")\t   },\t   \"val\":1 \t}",
+                "to": "{\t   \"op\":\"inc\",\t   \"labels\":{\t      \"centre_id\": $flowContext(\"centreid\")\t   },\t   \"val\":1 \t}",
                 "tot": "jsonata"
             }
         ],
@@ -1137,7 +1130,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t   \"op\":\"inc\",\t   \"labels\":{\t      \"centre_id\": $flowContext(\"centreid\"),\t      \"country\": $flowContext(\"country\")\t   },\t   \"val\":1 \t}",
+                "to": "{\t   \"op\":\"inc\",\t   \"labels\":{\t      \"centre_id\": $flowContext(\"centreid\")\t   },\t   \"val\":1 \t}",
                 "tot": "jsonata"
             }
         ],
@@ -1356,7 +1349,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t   \"op\":\"inc\",\t   \"labels\":{\t      \"centre_id\": $flowContext(\"centreid\"),\t      \"country\": $flowContext(\"country\")\t   },\t   \"val\":1 \t}",
+                "to": "{\t   \"op\":\"inc\",\t   \"labels\":{\t      \"centre_id\": $flowContext(\"centreid\")\t   },\t   \"val\":1 \t}",
                 "tot": "jsonata"
             }
         ],
@@ -2705,7 +2698,7 @@
                 "t": "set",
                 "p": "broker.clientid",
                 "pt": "msg",
-                "to": "$env(\"COUNTRY\") & \"_\" & $env(\"CENTRE_ID\") & \"_\" & $split(payload,\"-\")[4]",
+                "to": "$env(\"CENTRE_ID\") & \"_\" & $split(payload,\"-\")[4]",
                 "tot": "jsonata"
             }
         ],
