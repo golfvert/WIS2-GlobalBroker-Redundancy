@@ -2586,7 +2586,7 @@
                 "t": "set",
                 "p": "broker.verifyservercert",
                 "pt": "msg",
-                "to": "$length($env(\"MQTT_SUB_VERIFYCERT\")) = 0 ? true : $env(\"MQTT_SUB_VERIFYCERT\")",
+                "to": "$length($env(\"MQTT_SUB_VERIFYCERT\")) = 0 ? false : $env(\"MQTT_SUB_VERIFYCERT\")",
                 "tot": "jsonata"
             },
             {
