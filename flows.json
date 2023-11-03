@@ -2413,7 +2413,7 @@
                 "p": "code",
                 "pt": "flow",
                 "to": "200",
-                "tot": "str"
+                "tot": "num"
             }
         ],
         "action": "",
@@ -2439,7 +2439,7 @@
                 "p": "code",
                 "pt": "flow",
                 "to": "404",
-                "tot": "str"
+                "tot": "num"
             }
         ],
         "action": "",
