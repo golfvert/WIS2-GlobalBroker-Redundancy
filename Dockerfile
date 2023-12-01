@@ -1,6 +1,6 @@
 ARG ARCH=amd64
-ARG NODE_VERSION=14
-ARG OS=alpine3.12
+ARG NODE_VERSION=16
+ARG OS=alpine
 
 #### Stage BASE ########################################################################################################
 FROM ${ARCH}/node:${NODE_VERSION}-${OS} AS base
@@ -34,6 +34,8 @@ WORKDIR /usr/src/node-red
 # Setup SSH known_hosts file
 COPY known_hosts.sh .
 RUN ./known_hosts.sh /etc/ssh/ssh_known_hosts && rm /usr/src/node-red/known_hosts.sh
+RUN echo "PubkeyAcceptedKeyTypes +ssh-rsa" >> /etc/ssh/ssh_config
+
 
 # package.json contains Node-RED NPM module and node dependencies
 COPY package.json .
@@ -44,7 +46,7 @@ COPY settings.js /data
 FROM base AS build
 
 # Install Build tools
-RUN apk add --no-cache --virtual buildtools build-base linux-headers udev python2 && \
+RUN apk add --no-cache --virtual buildtools build-base linux-headers udev python3 && \
     npm install --unsafe-perm --no-update-notifier --no-fund --only=production && \
     /tmp/remove_native_gpio.sh && \
     cp -R node_modules prod_node_modules
