@@ -61,8 +61,10 @@ Copy & Paste the wis2node_1 to get one container per WIS2Node or other Global Br
       - MQTT_PUB_PASSWORD=
       - MQTT_MONIT_TOPIC=Topic_to_publish_on_Global_Broker
       - MSG_CHECK_OPTION=verify      # Should messages be "verify" (just add _comment in the notification message), "discard" (bin the message if not correct), "ignore" (don't check the messages)
+      - TOPIC_CHECK_OPTION=verify    # Should topic of publication be verified against the metadata published by centreid. The list is obtained by querying the Global Discovery Catalog.
+      Query is made every 15 minutes.
+      - GDC_URL=                     # How to query the GDC ? centre-id is added at the end of the URL.
       - CENTRE_ID=                   # Name_of_Center used as label and as a key when 2 (or more) containers are running 
-      - COUNTRY=                     # 3-letter code used as label for prometheus metrics 
       - REDIS_URL=[{"host":@IP1,"port":port1},{"host":@IP2,"port":port2},......] # A JSON Array with all host:port instances of the redis cluster
     ports:
       - "1880:1880"
@@ -74,7 +76,6 @@ There must be a redis *cluster* running and reachable by the wis2gb container
 
 MQTT_MONIT_TOPIC is optional. If defined, statistics on the status of the subsciption to the remote broker will be published to the Global Broker on the topic MQTT_MONIT_TOPIC/status. And every minute, the time difference (in seconds) between the current time and the time when the last message has been received from the remote broker. This will will be published on MQTT_MONIT_TOPIC/pubsub. If MQTT_MONIT_TOPIC is empty or does not exist no statistics will be published.
 CENTRE_ID is used as a variable as label in Prometheus. It is also used as a key when multiple containers are configured for one WIS2 Node
-COUNTRY is used as a variable as label in Prometheus.
 
 When done, save the docker-compose.yaml and start it with `docker compose up -d`
 
