@@ -293,7 +293,7 @@
         "autoConnect": false,
         "usetls": false,
         "protocolVersion": "4",
-        "keepalive": "60",
+        "keepalive": "15",
         "cleansession": true,
         "autoUnsubscribe": true,
         "birthTopic": "",
@@ -308,6 +308,7 @@
         "willQos": "0",
         "willPayload": "",
         "willMsg": {},
+        "userProps": "",
         "sessionExpiry": ""
     },
     {
