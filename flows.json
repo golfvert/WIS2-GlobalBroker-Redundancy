@@ -1460,7 +1460,7 @@
         "z": "3af82246.3634ae",
         "g": "0e2c3f294eb753b6",
         "name": "Valid ?",
-        "property": "topic in $flowContext(\"metadata\")",
+        "property": "$substringAfter(topic,\"wis2/\") in $flowContext(\"metadata\")",
         "propertyType": "jsonata",
         "rules": [
             {
@@ -2915,7 +2915,7 @@
                 "t": "set",
                 "p": "metadata",
                 "pt": "msg",
-                "to": "$exists(payload.features.links.channel) = true ? payload.features.links.channel : [\"\"]",
+                "to": "$distinct(\t   $map(\t       $exists(payload.features.links.channel) = true ? payload.features.links.channel : [\"\"],\t       function($v) { $substringAfter($v,\"wis2/\") }\t   )\t)",
                 "tot": "jsonata"
             },
             {
