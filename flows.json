@@ -2915,7 +2915,14 @@
                 "t": "set",
                 "p": "metadata",
                 "pt": "msg",
-                "to": "$distinct(\t   $map(\t       $exists(payload.features.links.channel) = true ? payload.features.links.channel : [\"\"],\t       function($v) { $substringAfter($v,\"wis2/\") }\t   )\t)",
+                "to": "$distinct(\t   $map(\t       $exists(payload.features.links.channel) = true ? payload.features.links.channel : [\"\"],\t       function($v) { $substringAfter($v,\"wis2/\") }\t   \t   )\t\t)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "metadata",
+                "pt": "msg",
+                "to": "metadata = \"\" ? [\"\"] : metadata\t",
                 "tot": "jsonata"
             },
             {
