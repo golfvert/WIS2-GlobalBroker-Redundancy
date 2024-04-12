@@ -7,10 +7,10 @@ echo "#########################################################################"
 
 docker build --rm --no-cache \
     --build-arg ARCH=amd64 \
-    --build-arg NODE_VERSION=16 \
+    --build-arg NODE_VERSION=18 \
     --build-arg NODE_RED_VERSION=${NODE_RED_VERSION} \
     --build-arg OS=alpine \
     --build-arg BUILD_DATE="$(date +"%Y-%m-%dT%H:%M:%SZ")" \
     --build-arg TAG_SUFFIX=default \
     --file Dockerfile \
-    --tag golfvert/wis2gb:2.0.7 .
+    --tag golfvert/wis2gb:2.0.9 .
