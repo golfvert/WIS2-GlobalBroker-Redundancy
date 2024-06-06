@@ -33,7 +33,8 @@
         "node-red-contrib-redis": "1.3.9",
         "node-red-contrib-prometheus-exporter": "1.0.5",
         "node-red-contrib-createrandom": "1.2.0",
-        "node-red-contrib-queue-gate": "1.5.5"
+        "node-red-contrib-queue-gate": "1.5.5",
+        "node-red-contrib-json-multi-schema": "1.6.1"
     },
     "engines": {
         "node": ">=12"

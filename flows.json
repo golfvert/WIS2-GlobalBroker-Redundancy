@@ -86,7 +86,6 @@
             "634a216d184c5685",
             "850ec94753e2c28e",
             "2fb43f7ea596c984",
-            "67f1804f7d58c4e3",
             "55162673b6a94ebc",
             "031988bb69f85a07",
             "88fdc7d698acb2d7",
@@ -132,7 +131,8 @@
             "352b870c0bdaf6d0",
             "11852c20d22ca77d",
             "ee7abda9b65a0828",
-            "d11e2b1d34dad0bf"
+            "d11e2b1d34dad0bf",
+            "6a6aedc5efbb5d51"
         ],
         "x": 34,
         "y": 1099,
@@ -1003,31 +1003,10 @@
         "y": 1720,
         "wires": [
             [
-                "67f1804f7d58c4e3"
+                "6a6aedc5efbb5d51"
             ],
             [
                 "c337fed9c7000a43"
-            ]
-        ]
-    },
-    {
-        "id": "67f1804f7d58c4e3",
-        "type": "function",
-        "z": "3af82246.3634ae",
-        "g": "0e2c3f294eb753b6",
-        "name": "Check msg",
-        "func": "let message = msg.payload;\nlet topic = msg.topic;\nlet score = 100;\nlet errors = [];\nmsg.valid = true;\n\n// Check if topic is correct\n\nif (!(topic.match('^origin/a.*$') || topic.match('^cache/a.*$'))) reject(\"topic in incorrect\");\n\n// Check existence of id\nconst id = message.id;\n\nif (id === undefined) reject(\"id is undefined\");\nelse {\n    const valid_uuid = isUUID(id);\n    if (valid_uuid == false) {\n        score = score - 10;\n    }\n}\n\nconst version = message.version;\nif (version === undefined ) {\n    const conform = message.conformsTo;\n    if ( conform === null ) reject(\"version is undefined and no conformsTo\");\n    else { \n        if ( conform.includes('http://wis.wmo.int/spec/wnm/1/conf/core') == false ) reject(\"conformsTo is not correct\");\n    }\n}\nelse \n    if ( version != \"v04\") reject(\"version is undefined or not correct\");\n       \nconst message_type = message.type;\nif (message_type === undefined || message_type != \"Feature\") reject(\"feature is undefined or not correct\");\n\nconst geometry = message.geometry;\nif (geometry === undefined) reject(\"geometry is undefined\");\nelse {\n    if (geometry === null) { }\n    else {\n        let geometry_type = geometry.type;\n        if (geometry_type == \"Point\") {\n            let geometry_coord = geometry.coordinates;\n            if (isArray(geometry_coord)) {\n                if (geometry_coord.length > 3) reject(\"geometry coordinates length is not correct\");\n                else {\n                    if (!((typeof (geometry_coord[0]) == 'number') && (geometry_coord[0] >= -180) && (geometry_coord[0] <= 180))) reject(\"geometry latitude is not correct\");\n                    if (!((typeof (geometry_coord[1]) == 'number') && (geometry_coord[1] >= -90) && (geometry_coord[1] <= 90))) reject(\"geometry latitude is not correct\");\n                }\n            }\n            else reject(\"geometry is not an array\");\n        }\n        else {\n            if (geometry_type == \"Polygon\") {\n                let geometry_coord = geometry.coordinates[0];\n                let point;\n                if (isArray(geometry_coord)) {\n                    const first = geometry_coord[0];\n                    const last = geometry_coord[geometry_coord.length - 1];\n                    if ((!isArray(first)) || (!isArray(last)) || (first[0] != last[0]) || (first[1] != last[1])) reject(\"Polygon coordinates are not correct\");\n                    for (let i = 0; i < geometry_coord.length; i++) {\n                        point = geometry_coord[i];\n                        if (isArray(point)) {\n                            if (point.length != 2) reject(\"Point geometry coordinates length is not correct\");\n                            else {\n                                if (!((typeof (point[0]) == 'number') && (point[0] >= -180) && (point[0] <= 180))) reject(\"Point geometry latitude is not correct\");\n                                if (!((typeof (point[1]) == 'number') && (point[1] >= -90) && (point[1] <= 90))) reject(\"Point geometry latitude is not correct\");\n                            }\n                        }\n                        else reject(\"Point geometry is not an array\");\n                    }\n                }\n                else reject(\"geometry is not an array\");\n            }\n            else reject(\"geometry is not one of the agreed type (null, point, polygon\");\n        }\n    }\n}\n\nconst properties = message.properties;\nif (properties === undefined) reject(\"properties is undefined\");\nelse {\n\n    const integrity = properties.integrity;\n    if (integrity === undefined) score = score - 10;\n    else {\n        const method = integrity.method;\n        if (method === undefined) reject(\"Hashing method is undefined\");\n        else {\n            if (method == \"MD5\") score = score - 10;\n            else if (method.match('^[sS][hH][aA]256|512$') === null) reject(\"Hashing method is not correct\");\n        }\n        const value = integrity.value;\n        if (value === undefined) reject(\"value is undefined\");\n    }\n\n    const content = properties.content;\n    if (content !== undefined) {\n        const encoding = content.encoding;\n        if (encoding === undefined) reject(\"encoding is undefined\");\n        else if (encoding.match('^utf\\-8|base64$') === null) reject(\"encoding is not correct\");\n        const value_encoding = content.value;\n        if (value_encoding === undefined) reject(\"value within encoding is undefined\");\n        const size = content.size;\n        if (size === undefined) reject(\"size within encoding is undefined\");\n        else if (size > 4096) reject(\"length exceeds the agreed value (4096)\");\n    }\n\n    const data_id = properties.data_id;\n    if (data_id === undefined) reject(\"data_id is undefined\");\n\n    const pubtime = properties.pubtime;\n    if (pubtime === undefined) reject(\"pubtime is undefined\");\n    else if (pubtime.match('^(?:[0-9]{4}-(?:0[1-9]|10|11|12)-(?:0[1-9]|1[0-9]|2[0-8])|[0-9]{4}-(?:0[13-9]|10|11|12)-(?:29|30)|[0-9]{4}-(?:0[13578]|10|12)-31|(?:[0-9]{2}[2468][048]|[0-9]{2}0[48]|[0-9]{2}[13579][26])-02-29|(?:[02468][048]00|[13579][26]00)-02-29)[T|t](?:(?:0[0-9]|1[0-9]|2[0-3]):(?:[0-5][0-9]):(?:[0-5][0-9]))(?:(\\.|,)([0-9]{1,3}|[0-9]{6}))?(?:Z|z)$') === null) reject(\"pubtime is not RFC3339 compliant\");\n\n    const datetime = properties.datetime;\n    const start_datetime = properties.start_datetime;\n    const end_datetime = properties.end_datetime;\n\n    if (datetime === undefined || datetime === null ) {\n        if (start_datetime === undefined || start_datetime === null ) {\n            if (end_datetime === undefined || end_datetime === null ) score = score - 10;\n            else reject(\"end_datetime is defined but start_datetime is not\");\n        }\n        else {\n            if (start_datetime.match('^(?:[0-9]{4}-(?:0[1-9]|10|11|12)-(?:0[1-9]|1[0-9]|2[0-8])|[0-9]{4}-(?:0[13-9]|10|11|12)-(?:29|30)|[0-9]{4}-(?:0[13578]|10|12)-31|(?:[0-9]{2}[2468][048]|[0-9]{2}0[48]|[0-9]{2}[13579][26])-02-29|(?:[02468][048]00|[13579][26]00)-02-29)[T|t](?:(?:0[0-9]|1[0-9]|2[0-3]):(?:[0-5][0-9]):(?:[0-5][0-9]))(?:(\\.|,)([0-9]{1,3}|[0-9]{6}))?(?:Z|z)$') === null) reject(\"start_datetime is not RFC3339 compliant\");\n            else {\n                if (end_datetime === undefined) reject(\"start_datetime is defined but end_datetime is not\");\n                else if (end_datetime.match('^(?:[0-9]{4}-(?:0[1-9]|10|11|12)-(?:0[1-9]|1[0-9]|2[0-8])|[0-9]{4}-(?:0[13-9]|10|11|12)-(?:29|30)|[0-9]{4}-(?:0[13578]|10|12)-31|(?:[0-9]{2}[2468][048]|[0-9]{2}0[48]|[0-9]{2}[13579][26])-02-29|(?:[02468][048]00|[13579][26]00)-02-29)[T|t](?:(?:0[0-9]|1[0-9]|2[0-3]):(?:[0-5][0-9]):(?:[0-5][0-9]))(?:(\\.|,)([0-9]{1,3}|[0-9]{6}))?(?:Z|z)$') === null) reject(\"end_datetime is not RFC3339 compliant\");\n            }\n        }\n    }\n    else {\n        if (start_datetime !== undefined || end_datetime !== undefined) reject(\"datetime and start_datetime/end_datetime are both defined\");\n        if (datetime.match('^(?:[0-9]{4}-(?:0[1-9]|10|11|12)-(?:0[1-9]|1[0-9]|2[0-8])|[0-9]{4}-(?:0[13-9]|10|11|12)-(?:29|30)|[0-9]{4}-(?:0[13578]|10|12)-31|(?:[0-9]{2}[2468][048]|[0-9]{2}0[48]|[0-9]{2}[13579][26])-02-29|(?:[02468][048]00|[13579][26]00)-02-29)[T|t](?:(?:0[0-9]|1[0-9]|2[0-3]):(?:[0-5][0-9]):(?:[0-5][0-9]))(?:(\\.|,)([0-9]{1,3}|[0-9]{6}))?(?:Z|z)$') === null) reject(\"datetime is not RFC3339 compliant\");\n    }\n}\n\nconst links = message.links;\nif (links === undefined) reject(\"links is undefined\");\nelse {\n    if (isArray(links)) {\n        let href, rel, mime_type;\n        let canonical_link = false;\n        for (let i = 0; i < links.length; i++) {\n            href = links[i].href;\n            if (href === undefined) reject(\"href is undefined\");\n            if (!(href.match('^http:\\/\\/.*$') || href.match('^https:\\/\\/.*$') || href.match('^sftp:\\/\\/.*$') || href.match('^ftp:\\/\\/.*$'))) reject(\"Download protocol is incorrect\");\n            if (href.match('^http:\\/\\/.*$') || href.match('^ftp:\\/\\/.*$')) score = score - 20;\n            rel = links[i].rel;\n            if (rel === undefined) reject(\"rel is undefined\");\n            if (rel.match('^canonical$')) canonical_link = true;\n            mime_type = links[i].type;\n            if (mime_type === undefined) reject(\"Mime-type is undefined\");\n        }\n        if (canonical_link == false) reject(\"canonical link is missing\");\n    }\n    else reject(\"links is not an array\");\n}\n\nmsg.score = score;\n\nif (errors.length != 0) {\n    let err = { \"errors\": errors };\n    msg.payload._comment = err;\n}\n\n\nreturn msg;\n\nfunction isUUID(uuid) {\n    let s = \"\" + uuid;\n    s = s.match('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$');\n    if (s === null) {\n        return false;\n    }\n    return true;\n}\n\nfunction reject(reason) {\n    errors.push(reason);\n    score = 0;\n    msg.score = score;\n    msg.valid = false;\n    return msg;\n}\n\nfunction isArray(myArray) {\n    return myArray.constructor.toString().indexOf(\"Array\") > -1;\n}\n",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 370,
-        "y": 1700,
-        "wires": [
-            [
-                "031988bb69f85a07"
             ]
         ]
     },
@@ -1057,20 +1036,20 @@
         "z": "3af82246.3634ae",
         "g": "0e2c3f294eb753b6",
         "name": "Valid ?",
-        "property": "valid",
+        "property": "error",
         "propertyType": "msg",
         "rules": [
             {
-                "t": "true"
+                "t": "false"
             },
             {
-                "t": "false"
+                "t": "else"
             }
         ],
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 510,
+        "x": 490,
         "y": 1700,
         "wires": [
             [
@@ -3193,6 +3172,13 @@
                 "pt": "msg",
                 "to": "mqtttopic",
                 "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "schemaUrl",
+                "pt": "msg",
+                "to": "SCHEMA_URL",
+                "tot": "env"
             }
         ],
         "action": "",
@@ -3912,5 +3898,106 @@
             []
         ],
         "l": false
+    },
+    {
+        "id": "3de8b967bb24ca9c",
+        "type": "json-multi-schema-validator",
+        "z": "3af82246.3634ae",
+        "name": "WNM",
+        "schemaVersion": "draft-2020-12",
+        "x": 470,
+        "y": 2620,
+        "wires": [
+            [
+                "5acdf0e1bc38371f"
+            ]
+        ]
+    },
+    {
+        "id": "3f79df6f6adf6125",
+        "type": "inject",
+        "z": "3af82246.3634ae",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "schemaUrl",
+                "v": "https://raw.githubusercontent.com/golfvert/wis2-topic-hierarchy/main/wis2-notification-message.json",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"9f7cb344-75ef-489d-1312-5591155e32af\",\"type\":\"Feature\",\"version\":\"v04\",\"geometry\":null,\"properties\":{\"data_id\":\"wis2/ca-eccc-msc/data/core/weather/prediction/forecast/medium-range/probabilistic/global/CMC_geps-raw_TMP_ISBL_0850_latlon0p5x0p5_2024060100_P069_allmbrs.grib2\",\"pubtime\":\"2024-06-01T06:58:41Z\",\"integrity\":{\"method\":\"sha512\",\"value\":\"6r6MecU7MFu9OTWPt8lTJ4ZBGOvUVbQsRsFK91yziTYe6ujN7dwA9YgA+8PQwIIISW46uICliVFId1jJPIHTsQ==\"},\"datetime\":null,\"cache\":false},\"links\":[{\"rel\":\"canonical\",\"type\":\"application/x-grib\",\"href\":\"https://dd4.weather.gc.ca/ensemble/geps/grib2/raw/00/069/CMC_geps-raw_TMP_ISBL_0850_latlon0p5x0p5_2024060100_P069_allmbrs.grib2\",\"length\":3355109}]}",
+        "payloadType": "json",
+        "x": 290,
+        "y": 2600,
+        "wires": [
+            [
+                "3de8b967bb24ca9c"
+            ]
+        ]
+    },
+    {
+        "id": "753d1c5aa0a72d36",
+        "type": "inject",
+        "z": "3af82246.3634ae",
+        "name": "",
+        "props": [
+            {
+                "p": "schemaUrl",
+                "v": "https://raw.githubusercontent.com/golfvert/wis2-topic-hierarchy/main/wis2-notification-message.json",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "x": 290,
+        "y": 2660,
+        "wires": [
+            [
+                "3de8b967bb24ca9c"
+            ]
+        ]
+    },
+    {
+        "id": "5acdf0e1bc38371f",
+        "type": "debug",
+        "z": "3af82246.3634ae",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 2620,
+        "wires": []
+    },
+    {
+        "id": "6a6aedc5efbb5d51",
+        "type": "json-multi-schema-validator",
+        "z": "3af82246.3634ae",
+        "g": "0e2c3f294eb753b6",
+        "name": "WNM",
+        "schemaVersion": "draft-2020-12",
+        "x": 350,
+        "y": 1700,
+        "wires": [
+            [
+                "031988bb69f85a07"
+            ]
+        ]
     }
 ]
