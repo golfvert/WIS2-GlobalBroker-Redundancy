@@ -2301,27 +2301,6 @@
             },
             {
                 "t": "set",
-                "p": "topic_status",
-                "pt": "flow",
-                "to": "$env(\"MQTT_MONIT_TOPIC\") & \"/status\"",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "topic_pubsub",
-                "pt": "flow",
-                "to": "$env(\"MQTT_MONIT_TOPIC\")  & \"/pubsub\"",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "topic_container",
-                "pt": "flow",
-                "to": "$env(\"MQTT_MONIT_TOPIC\")  & \"/container\"",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
                 "p": "centreid",
                 "pt": "flow",
                 "to": "CENTRE_ID",
