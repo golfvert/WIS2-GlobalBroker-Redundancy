@@ -133,7 +133,9 @@
             "a2b990cc2ac4b822",
             "8dafdd8865d5f168",
             "c3701b3de6b8fb91",
-            "1ab497b74638e16e"
+            "1ab497b74638e16e",
+            "72c0f0ca72d21c67",
+            "02167eb395a3423a"
         ],
         "x": 34,
         "y": 1159,
@@ -4012,5 +4014,34 @@
                 "a2b990cc2ac4b822"
             ]
         ]
+    },
+    {
+        "id": "72c0f0ca72d21c67",
+        "type": "catch",
+        "z": "3af82246.3634ae",
+        "g": "0e2c3f294eb753b6",
+        "name": "Subscriber",
+        "scope": [
+            "0ba924a28af55b20"
+        ],
+        "uncaught": false,
+        "x": 440,
+        "y": 1700,
+        "wires": [
+            [
+                "343e0c53a688e686"
+            ]
+        ]
+    },
+    {
+        "id": "02167eb395a3423a",
+        "type": "comment",
+        "z": "3af82246.3634ae",
+        "g": "0e2c3f294eb753b6",
+        "name": "Catch error on not JSON WNM",
+        "info": "",
+        "x": 230,
+        "y": 1700,
+        "wires": []
     }
 ]
