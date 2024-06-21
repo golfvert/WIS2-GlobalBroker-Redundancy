@@ -3001,7 +3001,7 @@
         "z": "3af82246.3634ae",
         "g": "0e2c3f294eb753b6",
         "name": "Discard ?",
-        "property": "(  (  $env(\"MSG_CHECK_OPTION\") = \"discard\" )  ? true : false ) ",
+        "property": "(  (  $env(\"METADATA_CHECK_OPTION\") = \"discard\" )  ? true : false ) ",
         "propertyType": "jsonata",
         "rules": [
             {
@@ -3339,7 +3339,7 @@
         "z": "3af82246.3634ae",
         "g": "0e2c3f294eb753b6",
         "name": "Discard ?",
-        "property": "$env(\"MSG_CHECK_OPTION\") = \"discard\"",
+        "property": "$env(\"TOPIC_CHECK_OPTION\") = \"discard\"",
         "propertyType": "jsonata",
         "rules": [
             {
