@@ -391,7 +391,7 @@
     {
         "id": "c344793f83ad40d6",
         "type": "prometheus-metric-config",
-        "name": "wmo_wis2_gb_messages_invalid_total",
+        "name": "wmo_wis2_gb_messages_invalid_format_total",
         "help": "Number of invalid messages",
         "labels": "centre_id",
         "mtype": "counter"
@@ -425,6 +425,14 @@
         "type": "prometheus-metric-config",
         "name": "wmo_wis2_gb_messages_no_metadata_total",
         "help": "Number of messages received without corresponding metadata from centre\t",
+        "labels": "centre_id",
+        "mtype": "counter"
+    },
+    {
+        "id": "c58a8bf69230d14f",
+        "type": "prometheus-metric-config",
+        "name": "wmo_wis2_gb_messages_invalid_topic_total",
+        "help": "Number of messages on invliad topic",
         "labels": "centre_id",
         "mtype": "counter"
     },
@@ -3028,7 +3036,7 @@
         "type": "prometheus-exporter",
         "z": "3af82246.3634ae",
         "g": "0e2c3f294eb753b6",
-        "name": "Invalid Topic",
+        "name": "No Metadata",
         "metric": "7fee2b4a4a920926",
         "x": 910,
         "y": 1620,
@@ -3367,7 +3375,7 @@
         "z": "3af82246.3634ae",
         "g": "0e2c3f294eb753b6",
         "name": "Invalid Topic",
-        "metric": "7fee2b4a4a920926",
+        "metric": "c58a8bf69230d14f",
         "x": 930,
         "y": 1420,
         "wires": []
