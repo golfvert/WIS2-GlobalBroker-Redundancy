@@ -186,16 +186,19 @@
             "fb872857136145a0",
             "1437e30492222fdc",
             "5a5ed27cce4a9ee1",
-            "6b68e0cf82457214",
             "8fb0ec6470571fd1",
             "e4140757ba2e1d5d",
             "e3a7bdd291dc874f",
-            "264ce3bcd8f56fe2"
+            "264ce3bcd8f56fe2",
+            "225fb9b32f8b87a0",
+            "0b7db5e2a563f7ee",
+            "3f291a7f649259e7",
+            "a9c4d402f2216f61"
         ],
         "x": 34,
         "y": 1999,
         "w": 952,
-        "h": 582
+        "h": 602
     },
     {
         "id": "704fe7a0a3413400",
@@ -221,7 +224,7 @@
             "3484111e0c147f1d"
         ],
         "x": 34,
-        "y": 2599,
+        "y": 2619,
         "w": 452,
         "h": 222
     },
@@ -1448,7 +1451,7 @@
         "y": 2120,
         "wires": [
             [
-                "fa24a2f54b4ae1a2"
+                "0b7db5e2a563f7ee"
             ]
         ]
     },
@@ -1472,7 +1475,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 250,
+        "x": 370,
         "y": 2120,
         "wires": [
             [
@@ -1493,7 +1496,7 @@
         "paramsType": "json",
         "payloadType": "json",
         "block": false,
-        "x": 370,
+        "x": 490,
         "y": 2120,
         "wires": [
             []
@@ -1533,6 +1536,7 @@
         "name": "Elect",
         "func": "let min = \"zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz\"\nlet arr = msg.payload;\nlet i;\nlet j=0;\nlet del=[];\nlet priority=\"secondary\";\n\nfor (i = 0; i < arr.length - 1; i = i + 2) {\n    if ( (arr[i] < min) && ( ( Date.now() - parseFloat(arr[i+1]) ) < 8000 ) ) min = arr[i] ;\n    if ( (Date.now() - parseFloat(arr[i + 1])) >= 8000 ) {\n        del[j] = arr[i];\n        j=j+1;\n    }\n}\n\nif ( flow.get(\"uuid\") == min ) priority=\"primary\"\n\nmsg.centre_id=flow.get(\"centreid\");\nmsg.payload = priority;\nmsg.del = del;\nmsg.uuid = flow.get(\"uuid\");\n\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -1572,13 +1576,12 @@
         "y": 2460,
         "wires": [
             [
-                "b6e7189343a699c5",
                 "0c40af1e53657c10",
-                "1fb5a0fd9a1d867e"
+                "3f291a7f649259e7"
             ],
             [
                 "97e2e9730afa6411",
-                "11e84d462d0da702"
+                "a9c4d402f2216f61"
             ]
         ]
     },
@@ -1598,7 +1601,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 320,
+        "x": 440,
         "y": 2340,
         "wires": [
             [
@@ -1626,7 +1629,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 450,
+        "x": 570,
         "y": 2340,
         "wires": [
             [
@@ -1668,7 +1671,7 @@
         "paramsType": "json",
         "payloadType": "json",
         "block": false,
-        "x": 570,
+        "x": 690,
         "y": 2340,
         "wires": [
             []
@@ -2025,7 +2028,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 320,
+        "x": 440,
         "y": 2380,
         "wires": [
             [
@@ -2058,8 +2061,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 330,
-        "y": 2540,
+        "x": 470,
+        "y": 2560,
         "wires": [
             [
                 "f0bb2e3b8a4db6ac"
@@ -2079,8 +2082,8 @@
         "paramsType": "json",
         "payloadType": "json",
         "block": false,
-        "x": 470,
-        "y": 2540,
+        "x": 610,
+        "y": 2560,
         "wires": [
             []
         ]
@@ -2098,7 +2101,7 @@
         "paramsType": "json",
         "payloadType": "json",
         "block": false,
-        "x": 450,
+        "x": 570,
         "y": 2380,
         "wires": [
             []
@@ -2112,7 +2115,7 @@
         "name": "Health check",
         "info": "",
         "x": 150,
-        "y": 2640,
+        "y": 2660,
         "wires": []
     },
     {
@@ -2126,7 +2129,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 130,
-        "y": 2700,
+        "y": 2720,
         "wires": [
             [
                 "507cce674d0f12d6"
@@ -2142,7 +2145,7 @@
         "statusCode": "",
         "headers": {},
         "x": 410,
-        "y": 2700,
+        "y": 2720,
         "wires": []
     },
     {
@@ -2171,7 +2174,7 @@
         "to": "",
         "reg": false,
         "x": 280,
-        "y": 2700,
+        "y": 2720,
         "wires": [
             [
                 "3c5d87dbdc9a0a2c"
@@ -2199,7 +2202,7 @@
         "to": "",
         "reg": false,
         "x": 270,
-        "y": 2740,
+        "y": 2760,
         "wires": [
             []
         ]
@@ -2225,7 +2228,7 @@
         "to": "",
         "reg": false,
         "x": 270,
-        "y": 2780,
+        "y": 2800,
         "wires": [
             []
         ]
@@ -2240,7 +2243,7 @@
             "bf84f00af773ae55"
         ],
         "x": 120,
-        "y": 2740,
+        "y": 2760,
         "wires": [
             [
                 "5f6c31b4abc8077c"
@@ -2258,7 +2261,7 @@
             "088242062a8edf86"
         ],
         "x": 130,
-        "y": 2780,
+        "y": 2800,
         "wires": [
             [
                 "d17844f69c0a434e"
@@ -4188,7 +4191,7 @@
                 "264ce3bcd8f56fe2"
             ],
             [
-                "6b68e0cf82457214"
+                "225fb9b32f8b87a0"
             ]
         ]
     },
@@ -4214,34 +4217,6 @@
         "reg": false,
         "x": 780,
         "y": 2240,
-        "wires": [
-            [
-                "1437e30492222fdc"
-            ]
-        ]
-    },
-    {
-        "id": "6b68e0cf82457214",
-        "type": "change",
-        "z": "3af82246.3634ae",
-        "g": "af64ebcc5f745fbb",
-        "name": "Secondary",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "secondary",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 790,
-        "y": 2280,
         "wires": [
             [
                 "1437e30492222fdc"
@@ -4276,6 +4251,107 @@
         "wires": [
             [
                 "f41773382fda2a90"
+            ]
+        ]
+    },
+    {
+        "id": "225fb9b32f8b87a0",
+        "type": "change",
+        "z": "3af82246.3634ae",
+        "g": "af64ebcc5f745fbb",
+        "name": "Secondary",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "secondary",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 2280,
+        "wires": [
+            [
+                "1437e30492222fdc"
+            ]
+        ]
+    },
+    {
+        "id": "0b7db5e2a563f7ee",
+        "type": "switch",
+        "z": "3af82246.3634ae",
+        "g": "af64ebcc5f745fbb",
+        "name": "K8s ?",
+        "property": "k8s",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 250,
+        "y": 2120,
+        "wires": [
+            [
+                "fa24a2f54b4ae1a2"
+            ]
+        ]
+    },
+    {
+        "id": "3f291a7f649259e7",
+        "type": "switch",
+        "z": "3af82246.3634ae",
+        "g": "af64ebcc5f745fbb",
+        "name": "K8s ?",
+        "property": "k8s",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 310,
+        "y": 2380,
+        "wires": [
+            [
+                "b6e7189343a699c5",
+                "1fb5a0fd9a1d867e"
+            ]
+        ]
+    },
+    {
+        "id": "a9c4d402f2216f61",
+        "type": "switch",
+        "z": "3af82246.3634ae",
+        "g": "af64ebcc5f745fbb",
+        "name": "K8s ?",
+        "property": "k8s",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 310,
+        "y": 2560,
+        "wires": [
+            [
+                "11e84d462d0da702"
             ]
         ]
     }
