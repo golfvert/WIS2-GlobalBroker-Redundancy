@@ -319,11 +319,12 @@
             "aeb035ff965d3e07",
             "cb97214fc946340e",
             "15b891b1eaae02bc",
-            "3f243d36cf7b774d"
+            "3f243d36cf7b774d",
+            "35db291da8249070"
         ],
         "x": 34,
         "y": 999,
-        "w": 972,
+        "w": 1092,
         "h": 142
     },
     {
@@ -3581,7 +3582,7 @@
         "y": 1100,
         "wires": [
             [
-                "bc302c2998d5d05c"
+                "35db291da8249070"
             ]
         ]
     },
@@ -3602,7 +3603,7 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 570,
+        "x": 690,
         "y": 1100,
         "wires": [
             [
@@ -3623,7 +3624,7 @@
         "arraySpltType": "len",
         "stream": true,
         "addname": "",
-        "x": 690,
+        "x": 810,
         "y": 1100,
         "wires": [
             [
@@ -3656,7 +3657,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 810,
+        "x": 930,
         "y": 1100,
         "wires": [
             [
@@ -3677,7 +3678,7 @@
         "paramsType": "json",
         "payloadType": "json",
         "block": false,
-        "x": 930,
+        "x": 1050,
         "y": 1100,
         "wires": [
             []
@@ -3696,7 +3697,7 @@
         "y": 1060,
         "wires": [
             [
-                "bc302c2998d5d05c"
+                "35db291da8249070"
             ]
         ]
     },
@@ -3739,7 +3740,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 690,
+        "x": 810,
         "y": 1060,
         "wires": [
             [
@@ -3760,7 +3761,7 @@
         "paramsType": "json",
         "payloadType": "json",
         "block": false,
-        "x": 810,
+        "x": 930,
         "y": 1060,
         "wires": [
             []
@@ -4352,6 +4353,34 @@
         "wires": [
             [
                 "11e84d462d0da702"
+            ]
+        ]
+    },
+    {
+        "id": "35db291da8249070",
+        "type": "change",
+        "z": "3af82246.3634ae",
+        "g": "b427973b734bcab3",
+        "name": "URL",
+        "rules": [
+            {
+                "t": "set",
+                "p": "url",
+                "pt": "msg",
+                "to": "$length($env(\"TOPIC_URL\")) = 0 ? \"https://raw.githubusercontent.com/golfvert/wis2-topic-hierarchy/main/earth-system-discipline-and-below.md5.txt\" : $env(\"TOPIC_URL\")",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 1100,
+        "wires": [
+            [
+                "bc302c2998d5d05c"
             ]
         ]
     }
