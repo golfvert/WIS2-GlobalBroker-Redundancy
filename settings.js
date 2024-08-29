@@ -27,7 +27,7 @@ module.exports = {
     credentialSecret: false,
     userDir: '/data/',
     nodesDir: '/data/nodes',
-    httpAdminRoot: "/",
+    httpAdminRoot: "/admin",
     httpNodeRoot: '/',
     httpStatic: '/',
     functionGlobalContext: {
@@ -43,7 +43,7 @@ module.exports = {
     editorTheme: {
         tours: false,
         projects: {
-            enabled: true
+            enabled: false
         }
     }
 };
