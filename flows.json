@@ -151,7 +151,9 @@
             "df49419d7601b87d",
             "f991a21e2b607b2a",
             "e9481475ba807981",
-            "3e59395ae80ba3c9"
+            "3e59395ae80ba3c9",
+            "db6692c486872572",
+            "ecd4cba1d3c3ffc0"
         ],
         "x": 34,
         "y": 1159,
@@ -4747,5 +4749,48 @@
         "x": 595,
         "y": 2000,
         "wires": []
+    },
+    {
+        "id": "ecd4cba1d3c3ffc0",
+        "type": "status",
+        "z": "3af82246.3634ae",
+        "g": "0e2c3f294eb753b6",
+        "name": "",
+        "scope": [
+            "8a2be6e648c0be85"
+        ],
+        "x": 120,
+        "y": 1340,
+        "wires": [
+            [
+                "db6692c486872572"
+            ]
+        ]
+    },
+    {
+        "id": "db6692c486872572",
+        "type": "switch",
+        "z": "3af82246.3634ae",
+        "g": "0e2c3f294eb753b6",
+        "name": "Green ?",
+        "property": "status.fill",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "green",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 260,
+        "y": 1340,
+        "wires": [
+            [
+                "8dafdd8865d5f168"
+            ]
+        ]
     }
 ]
