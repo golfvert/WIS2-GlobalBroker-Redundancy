@@ -10,7 +10,7 @@ It is considered that providing a cluster of an MQTT broker is a key component o
 
 However, unlike the initial version, this one adds redundancy where needed:
 - It uses an *available* redis cluster (See https://redis.io/docs/management/scaling/ on how to create such a cluster)
-- Each instance of the antiloop docker container can be run multiple times (eg in a docker swarm environment with redundancy >= 2 ) toward the same WIS2 Node. Each instance will subscribe to the remote broker and only the *primary* will process the messages. The containers are running in an active/active more for the subscription point of view but in an active/passive point of view for the processing. 
+- Each instance of the antiloop docker container can be run multiple times (this would be equivalent to, in a docker swarm environment, redundancy >= 2 ) toward the same WIS2 Node. Each instance will subscribe to the remote broker and only the *primary* will process the messages. The containers are running in an active/active more for the subscription point of view but in an active/passive point of view for the processing. 
 
 Keeping two active subscription guarantee that no message will be lost in case of failure of one of the instance of the container. Messages on the *secondary* container(s) are queued to allow promotion to *primary* without message loss.
 The election procedure uses the redis cluster.
