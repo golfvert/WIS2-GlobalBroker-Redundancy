@@ -153,7 +153,8 @@
             "e9481475ba807981",
             "3e59395ae80ba3c9",
             "db6692c486872572",
-            "ecd4cba1d3c3ffc0"
+            "ecd4cba1d3c3ffc0",
+            "1304c39f28775a40"
         ],
         "x": 34,
         "y": 1159,
@@ -535,7 +536,6 @@
         "name": "link in 6",
         "links": [
             "bf84f00af773ae55",
-            "088242062a8edf86",
             "9204f8d517897d74"
         ],
         "x": 275,
@@ -1888,7 +1888,6 @@
         "links": [
             "2a717a1429576405",
             "de8091ab1ae779f6",
-            "48ea516b2cc04255",
             "3484111e0c147f1d",
             "94708a5cad3b4ebf"
         ],
@@ -3762,7 +3761,7 @@
             [
                 "343e0c53a688e686",
                 "88fdc7d698acb2d7",
-                "3e59395ae80ba3c9"
+                "1304c39f28775a40"
             ]
         ]
     },
@@ -4520,7 +4519,7 @@
         "links": [
             "2c4139ee09b1643e"
         ],
-        "x": 575,
+        "x": 595,
         "y": 1460,
         "wires": []
     },
@@ -4529,14 +4528,14 @@
         "type": "change",
         "z": "3af82246.3634ae",
         "g": "0e2c3f294eb753b6",
-        "name": "Error",
+        "name": "Exception",
         "rules": [
             {
                 "t": "set",
-                "p": "error",
+                "p": "exception",
                 "pt": "msg",
-                "to": "Missing id in WIS2 Notification Message",
-                "tot": "str"
+                "to": "{\t   \"code\": \"invalid-schema\",\t   \"description\": \"WIS2 Notification Message not compliant with the defined schema\",\t   \"errors\": \t   [\t      {\t      \"keyword\": \"required\",\t      \"dataPath\": \"\",\t      \"schemaPath\": \"#/oneOf/0/required\",\t      \"params\": {\t         \"missingProperty\": \"id\"\t      },\t      \"message\": \"should have required property 'id'\"\t      }\t   ]\t}",
+                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -4544,7 +4543,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 490,
+        "x": 500,
         "y": 1460,
         "wires": [
             [
@@ -4609,7 +4608,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t  \"specversion\": \"1.0\",\t  \"type\": \"int.wmo.wis2.wmam.report.wnm\",\t  \"source\": $flowContext(\"gbid\"),\t  \"subject\": $flowContext(\"centreid\"),\t  \"id\": uuid,\t  \"time\": $fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01].[f003]Z'),\t  \"datacontenttype\": \"application/json\",\t  \"data\": {\t      \"topic\": mqtttopic,\t      \"payload\": mqttpayload,\t      \"error\": error\t    }\t}",
+                "to": "{\t  \"specversion\": \"1.0\",\t  \"type\": \"int.wmo.wis2.wme.report.wnm\",\t  \"source\": $flowContext(\"gbid\"),\t  \"subject\": $flowContext(\"centreid\"),\t  \"id\": uuid,\t  \"time\": $fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01].[f003]Z'),\t  \"datacontenttype\": \"application/json\",\t  \"dataschema\": \"https://raw.githubusercontent.com/wmo-im/wis2-monitoring-events/refs/heads/main/schemas/wnm-report-bundled.json\",\t  \"data\": {\t      \"topic\": mqtttopic,\t      \"wnm\": mqttpayload,\t      \"exception\": exception\t    }\t}",
                 "tot": "jsonata"
             },
             {
@@ -4662,7 +4661,7 @@
         "links": [
             "2c4139ee09b1643e"
         ],
-        "x": 825,
+        "x": 835,
         "y": 1600,
         "wires": []
     },
@@ -4671,14 +4670,14 @@
         "type": "change",
         "z": "3af82246.3634ae",
         "g": "0e2c3f294eb753b6",
-        "name": "Error",
+        "name": "Exception",
         "rules": [
             {
                 "t": "set",
-                "p": "error",
+                "p": "exception",
                 "pt": "msg",
-                "to": "WIS2 Notification Message published on an invalid topic",
-                "tot": "str"
+                "to": "{\t   \"code\": \"invalid-topic\",\t   \"description\": \"WIS2 Notification Message published on a invalid topic\"\t}",
+                "tot": "json"
             }
         ],
         "action": "",
@@ -4686,7 +4685,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 730,
+        "x": 740,
         "y": 1600,
         "wires": [
             [
@@ -4699,14 +4698,14 @@
         "type": "change",
         "z": "3af82246.3634ae",
         "g": "0e2c3f294eb753b6",
-        "name": "Error",
+        "name": "Exception",
         "rules": [
             {
                 "t": "set",
-                "p": "error",
+                "p": "exception",
                 "pt": "msg",
-                "to": "Missing Metadata record for data publishing in WIS2 Notification Message",
-                "tot": "str"
+                "to": "{\"code\":\"missing-metadata\",\"description\":\"Missing Metadata record for data announced in WIS2 Notification Message\"}",
+                "tot": "json"
             }
         ],
         "action": "",
@@ -4714,7 +4713,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 730,
+        "x": 740,
         "y": 1800,
         "wires": [
             [
@@ -4732,7 +4731,7 @@
         "links": [
             "2c4139ee09b1643e"
         ],
-        "x": 825,
+        "x": 835,
         "y": 1800,
         "wires": []
     },
@@ -4746,7 +4745,7 @@
         "links": [
             "2c4139ee09b1643e"
         ],
-        "x": 595,
+        "x": 775,
         "y": 2000,
         "wires": []
     },
@@ -4790,6 +4789,34 @@
         "wires": [
             [
                 "8dafdd8865d5f168"
+            ]
+        ]
+    },
+    {
+        "id": "1304c39f28775a40",
+        "type": "change",
+        "z": "3af82246.3634ae",
+        "g": "0e2c3f294eb753b6",
+        "name": "Add exception",
+        "rules": [
+            {
+                "t": "set",
+                "p": "exception",
+                "pt": "msg",
+                "to": "{       \t    \"code\": \"invalid-schema\",\t    \"description\": \"WIS2 Notification Message not compliant with the defined schema\",\t    \"errors\": error\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 2000,
+        "wires": [
+            [
+                "3e59395ae80ba3c9"
             ]
         ]
     }
