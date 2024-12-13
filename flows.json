@@ -4608,7 +4608,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t  \"specversion\": \"1.0\",\t  \"type\": \"int.wmo.wis2.wme.report.wnm\",\t  \"source\": $flowContext(\"gbid\"),\t  \"subject\": $flowContext(\"centreid\"),\t  \"id\": uuid,\t  \"time\": $fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01].[f003]Z'),\t  \"datacontenttype\": \"application/json\",\t  \"dataschema\": \"https://raw.githubusercontent.com/wmo-im/wis2-monitoring-events/refs/heads/main/schemas/wnm-report-bundled.json\",\t  \"data\": {\t      \"topic\": mqtttopic,\t      \"wnm\": mqttpayload,\t      \"exception\": exception\t    }\t}",
+                "to": "{\t  \"specversion\": \"1.0\",\t  \"type\": \"int.wmo.wis.wme.event.wnm\",\t  \"source\": $flowContext(\"gbid\"),\t  \"subject\": $flowContext(\"centreid\"),\t  \"id\": uuid,\t  \"time\": $fromMillis($millis(),'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01].[f003]Z'),\t  \"datacontenttype\": \"application/json\",\t  \"dataschema\": \"https://raw.githubusercontent.com/wmo-im/wis2-monitoring-events/refs/heads/main/schemas/wnm-report-bundled.json\",\t  \"data\": {\t      \"topic\": mqtttopic,\t      \"wnm\": mqttpayload,\t      \"exception\": exception\t    }\t}",
                 "tot": "jsonata"
             },
             {
