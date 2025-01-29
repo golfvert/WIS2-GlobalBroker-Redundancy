@@ -2670,7 +2670,7 @@
         "props": [
             {
                 "p": "url",
-                "v": "$env(\"GDC_URL\") & '\"' & $flowContext(\"centreid\") & '\"'",
+                "v": "$env(\"GDC_URL\") & '\"a/wis2/' & $flowContext(\"centreid\") & '/\"'",
                 "vt": "jsonata"
             },
             {
