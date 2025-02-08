@@ -2635,7 +2635,7 @@
                 "t": "set",
                 "p": "metadata",
                 "pt": "flow",
-                "to": "$eval(payload[1])",
+                "to": "$contains(payload[1], /\\[.*\\]/ ) ? $eval(payload[1]) : payload[1]",
                 "tot": "jsonata"
             }
         ],
