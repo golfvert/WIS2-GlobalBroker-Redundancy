@@ -1036,7 +1036,7 @@
         "z": "3af82246.3634ae",
         "g": "0e2c3f294eb753b6",
         "name": "Validate ?",
-        "property": "( \t       ( ( $env(\"MSG_CHECK_OPTION\") in [\"discard\",\"verify\"] ) and $not($contains(topic,\"metadata\") ) ) ? true : false\t)\t",
+        "property": "(\t   (\t       ( $env(\"MSG_CHECK_OPTION\") in [\"discard\",\"verify\"] ) \t       and $not ($contains(topic,\"metadata\") )\t       and $not ($contains(topic,\"monitor\") )\t   ) ? true : false\t)\t",
         "propertyType": "jsonata",
         "rules": [
             {
