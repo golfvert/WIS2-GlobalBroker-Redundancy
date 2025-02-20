@@ -512,7 +512,7 @@
         "id": "c58a8bf69230d14f",
         "type": "prometheus-metric-config",
         "name": "wmo_wis2_gb_messages_invalid_topic_total",
-        "help": "Number of messages on invliad topic",
+        "help": "Number of messages on invalid topic",
         "labels": "centre_id",
         "mtype": "counter"
     },
