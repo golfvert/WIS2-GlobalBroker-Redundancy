@@ -551,7 +551,8 @@
         "g": "2cac6541d3b7ad29",
         "name": "Remote Broker",
         "scope": [
-            "0ba924a28af55b20"
+            "0ba924a28af55b20",
+            "7a263ef696031b44"
         ],
         "x": 140,
         "y": 640,
@@ -5459,7 +5460,7 @@
         "z": "3af82246.3634ae",
         "g": "ce2cac978984a426",
         "name": "Code ?",
-        "property": "payload",
+        "property": "statusCode",
         "propertyType": "msg",
         "rules": [
             {
