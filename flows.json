@@ -2545,7 +2545,7 @@
                 "t": "set",
                 "p": "broker.clientid",
                 "pt": "msg",
-                "to": "$length($env(\"MQTT_CLIENTID\")) = 0 ? payload : $env(\"MQTT_CLIENTID\") & \"_\" & $split(payload,\"-\")[4]",
+                "to": "$length($env(\"GB_ID\")) = 0 ? payload : $env(\"GB_ID\") & \"_\" & $split(payload,\"-\")[4]",
                 "tot": "jsonata"
             },
             {
