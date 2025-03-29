@@ -167,7 +167,10 @@
             "17f796dad109ce1f",
             "d7bc6895152a0bbb",
             "8ce93a54e79404b3",
-            "33170c2549d5ffe3"
+            "33170c2549d5ffe3",
+            "e65d663a042a0a9e",
+            "53059b8651e0f42c",
+            "f21471fac0b612dd"
         ],
         "x": 34,
         "y": 1399,
@@ -281,8 +284,6 @@
             "b7063bd33192a3f5",
             "dd045490fff21a17",
             "93a9fa867e314aa1",
-            "8a2be6e648c0be85",
-            "20ce89c8428168cd",
             "2d49c2d7293068cb",
             "a2d55fdc5f93394d",
             "17ec0cec1cf800f0",
@@ -303,7 +304,9 @@
             "4601d57ef159d094",
             "7553ae3a6a465f09",
             "94c550d8678f1786",
-            "e6f11bbd84e2813a"
+            "e6f11bbd84e2813a",
+            "5d2fc40d284feb0e",
+            "affbfac114622266"
         ],
         "x": 34,
         "y": 19,
@@ -412,7 +415,7 @@
         "id": "ac0560c0180e4641",
         "type": "mqtt-broker",
         "name": "Publisher",
-        "broker": "${MQTT_PUB_BROKER}",
+        "broker": "\"\"",
         "port": "",
         "tls": "",
         "clientid": "",
@@ -421,18 +424,21 @@
         "protocolVersion": "4",
         "keepalive": "60",
         "cleansession": true,
-        "autoUnsubscribe": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
+        "autoUnsubscribe": false,
+        "birthTopic": "test/a/wis2/remy",
+        "birthQos": "2",
+        "birthRetain": "true",
+        "birthPayload": "Connection",
         "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
+        "closeTopic": "test/a/wis2/remy",
+        "closeQos": "2",
+        "closeRetain": "true",
+        "closePayload": "Adieu",
         "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
+        "willTopic": "test/a/wis2/remy",
+        "willQos": "2",
+        "willRetain": "true",
+        "willPayload": "Mort",
         "willMsg": {},
         "userProps": "",
         "sessionExpiry": ""
@@ -2501,7 +2507,7 @@
             },
             {
                 "t": "set",
-                "p": "broker.url",
+                "p": "broker.broker",
                 "pt": "msg",
                 "to": "MQTT_SUB_BROKER",
                 "tot": "env"
@@ -2565,7 +2571,7 @@
         "y": 260,
         "wires": [
             [
-                "8a2be6e648c0be85"
+                "5d2fc40d284feb0e"
             ]
         ]
     },
@@ -2599,7 +2605,7 @@
             },
             {
                 "t": "set",
-                "p": "broker.url",
+                "p": "broker.broker",
                 "pt": "msg",
                 "to": "MQTT_PUB_BROKER",
                 "tot": "env"
@@ -2629,7 +2635,7 @@
                 "t": "set",
                 "p": "broker.protocolVersion",
                 "pt": "msg",
-                "to": "$length($env(\"MQTT_PUB_BROKERVERSION\")) = 0 ? 4 : $env(\"MQTT_PUB_BROKERVERSION\")",
+                "to": "$length($env(\"MQTT_PUB_BROKERVERSION\")) = 0 ? 4 : $number($env(\"MQTT_PUB_BROKERVERSION\"))",
                 "tot": "jsonata"
             },
             {
@@ -2649,48 +2655,9 @@
         "y": 300,
         "wires": [
             [
-                "20ce89c8428168cd"
+                "affbfac114622266"
             ]
         ]
-    },
-    {
-        "id": "8a2be6e648c0be85",
-        "type": "mqtt in",
-        "z": "3af82246.3634ae",
-        "g": "ce2cac978984a426",
-        "name": "Define Subscriber",
-        "topic": "",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "8cf5f6b5.937088",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 1,
-        "x": 670,
-        "y": 260,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "20ce89c8428168cd",
-        "type": "mqtt out",
-        "z": "3af82246.3634ae",
-        "g": "ce2cac978984a426",
-        "name": "Define Publisher",
-        "topic": "",
-        "qos": "1",
-        "retain": "false",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "ac0560c0180e4641",
-        "x": 660,
-        "y": 300,
-        "wires": []
     },
     {
         "id": "b1c3baa492255df2",
@@ -3720,7 +3687,8 @@
         "y": 2120,
         "wires": [
             [
-                "343e0c53a688e686"
+                "343e0c53a688e686",
+                "e65d663a042a0a9e"
             ]
         ]
     },
@@ -6043,6 +6011,103 @@
         "wires": [
             [
                 "2fb43f7ea596c984"
+            ]
+        ]
+    },
+    {
+        "id": "5d2fc40d284feb0e",
+        "type": "mqtt out",
+        "z": "3af82246.3634ae",
+        "g": "ce2cac978984a426",
+        "name": "Subscriber",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8cf5f6b5.937088",
+        "x": 650,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "affbfac114622266",
+        "type": "mqtt out",
+        "z": "3af82246.3634ae",
+        "g": "ce2cac978984a426",
+        "name": "Define Publisher",
+        "topic": "",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "ac0560c0180e4641",
+        "x": 660,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e65d663a042a0a9e",
+        "type": "link out",
+        "z": "3af82246.3634ae",
+        "g": "0e2c3f294eb753b6",
+        "name": "link out 33",
+        "mode": "link",
+        "links": [
+            "53059b8651e0f42c"
+        ],
+        "x": 755,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "53059b8651e0f42c",
+        "type": "link in",
+        "z": "3af82246.3634ae",
+        "g": "0e2c3f294eb753b6",
+        "name": "link in 20",
+        "links": [
+            "e65d663a042a0a9e"
+        ],
+        "x": 565,
+        "y": 2280,
+        "wires": [
+            [
+                "f21471fac0b612dd"
+            ]
+        ]
+    },
+    {
+        "id": "f21471fac0b612dd",
+        "type": "change",
+        "z": "3af82246.3634ae",
+        "g": "0e2c3f294eb753b6",
+        "name": "Error",
+        "rules": [
+            {
+                "t": "set",
+                "p": "error",
+                "pt": "msg",
+                "to": "Notification Message is not JSON",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 2280,
+        "wires": [
+            [
+                "1304c39f28775a40"
             ]
         ]
     }
