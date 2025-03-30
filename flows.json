@@ -568,37 +568,6 @@
         "sessionExpiry": ""
     },
     {
-        "id": "9af896bccd6ed755",
-        "type": "mqtt-broker",
-        "name": "Test",
-        "broker": "\"\"",
-        "port": "",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "4",
-        "keepalive": "60",
-        "cleansession": true,
-        "autoUnsubscribe": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthRetain": "false",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closeRetain": "false",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willRetain": "false",
-        "willPayload": "",
-        "willMsg": {},
-        "userProps": "",
-        "sessionExpiry": ""
-    },
-    {
         "id": "b1115d7b4bce6f22",
         "type": "comment",
         "z": "3af82246.3634ae",
@@ -3711,7 +3680,8 @@
         "g": "0e2c3f294eb753b6",
         "name": "Subscriber",
         "scope": [
-            "0ba924a28af55b20"
+            "0ba924a28af55b20",
+            "7a263ef696031b44"
         ],
         "uncaught": false,
         "x": 620,
@@ -4521,7 +4491,7 @@
         "g": "0e2c3f294eb753b6",
         "name": "Primary",
         "scope": [
-            "8a2be6e648c0be85"
+            "5d2fc40d284feb0e"
         ],
         "x": 110,
         "y": 1560,
@@ -4790,7 +4760,8 @@
         "g": "5bab0e2a46b1d524",
         "name": "Primary",
         "scope": [
-            "0ba924a28af55b20"
+            "0ba924a28af55b20",
+            "5d2fc40d284feb0e"
         ],
         "x": 110,
         "y": 800,
@@ -5291,7 +5262,7 @@
         "g": "2cac6541d3b7ad29",
         "name": "Primary",
         "scope": [
-            "8a2be6e648c0be85"
+            "5d2fc40d284feb0e"
         ],
         "x": 110,
         "y": 620,
