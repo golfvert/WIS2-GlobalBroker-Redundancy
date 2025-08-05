@@ -4427,7 +4427,7 @@
                 "t": "set",
                 "p": "topic",
                 "pt": "msg",
-                "to": "\"monitor/a/wis2/\" & $flowContext(\"gbid\") & \"/\" & $flowContext(\"centreid\")",
+                "to": "\"monitor/a/wis2/\" &  $flowContext(\"centreid\")",
                 "tot": "jsonata"
             }
         ],
@@ -4489,8 +4489,8 @@
                 "t": "set",
                 "p": "exception",
                 "pt": "msg",
-                "to": "{\t   \"code\": \"invalid-topic\",\t   \"description\": \"WIS2 Notification Message published on a invalid topic\"\t}",
-                "tot": "json"
+                "to": "{\t   \"code\": \"invalid-topic\",       \"description\": \"WIS2 Notification Message published on a invalid topic\",\t           \"errors\": error\t}",
+                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -7181,7 +7181,7 @@
             },
             {
                 "t": "jsonata_exp",
-                "v": "( $count(links[rel = \"canonical\"]) + $count(links[rel = \"update\"]) + $count(links[rel = \"deletion\"]) > 1 ) ",
+                "v": "( $count(links[rel = \"canonical\"]) + $count(links[rel = \"update\"]) + $count(links[rel = \"deletion\"]) != 1 ) ",
                 "vt": "jsonata"
             }
         ],
@@ -7210,7 +7210,7 @@
                 "t": "set",
                 "p": "error",
                 "pt": "msg",
-                "to": "Too many rel=canonical, rel=update, rel=deletion - Grace period - change before 01/01/2026",
+                "to": "Not exactly one of rel=canonical, rel=update, rel=deletion - Grace period - change before 01/01/2026",
                 "tot": "str"
             }
         ],
