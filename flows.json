@@ -7176,12 +7176,12 @@
         "rules": [
             {
                 "t": "jsonata_exp",
-                "v": "( $count(links[rel = \"canonical\"]) + $count(links[rel = \"update\"]) + $count(links[rel = \"deletion\"]) = 1 )",
+                "v": "( $count(payload.links[rel = \"canonical\"]) + $count(payload.links[rel = \"update\"]) + $count(payload.links[rel = \"deletion\"]) = 1 )",
                 "vt": "jsonata"
             },
             {
                 "t": "jsonata_exp",
-                "v": "( $count(links[rel = \"canonical\"]) + $count(links[rel = \"update\"]) + $count(links[rel = \"deletion\"]) != 1 ) ",
+                "v": "( $count(payload.links[rel = \"canonical\"]) + $count(payload.links[rel = \"update\"]) + $count(payload.links[rel = \"deletion\"]) != 1 ) ",
                 "vt": "jsonata"
             }
         ],
@@ -7210,7 +7210,7 @@
                 "t": "set",
                 "p": "error",
                 "pt": "msg",
-                "to": "Not exactly one of rel=canonical, rel=update, rel=deletion - Grace period - change before 01/01/2026",
+                "to": "WNM links require one and only one of rel=canonical, rel=update, rel=deletion. Please update before the end of the grace pertiod (2027-06-30)",
                 "tot": "str"
             }
         ],
@@ -7406,7 +7406,7 @@
                 "t": "set",
                 "p": "error",
                 "pt": "msg",
-                "to": "Metadata published on topic deeper than metadata - Grace period - change before 01/01/2026",
+                "to": "Metadata topic should not be deeper than origin/a/wis2/centre-id/metadata. Please update before the end of the grace period (2027-06-30)",
                 "tot": "str"
             }
         ],
