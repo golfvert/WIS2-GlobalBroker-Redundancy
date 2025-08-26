@@ -1,0 +1,46 @@
+name: Remove Examples in Official WNM Schema
+
+# Controls when the workflow will run
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+  
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: 'Remove jq'
+        run: |
+          sudo apt-get purge --auto-remove jq
+ 
+      - name: 'Setup jq'
+        uses: dcarbone/install-jq-action@v2
+        with:
+          version: 1.7
+          force: true
+          
+      - name: Get full schema
+        run: |
+          curl -O https://raw.githubusercontent.com/wmo-im/wis2-notification-message/main/schemas/wis2-notification-message-bundled.json
+          
+      - name: Delete offending keys in schema file
+        run: >
+          cat wis2-notification-message-bundled.json | jq 'del(.properties.links.items.allOf[0].allOf[0].properties.[].example)' | 
+                jq 'del (.properties.links.items.allOf[0].allOf[1].properties.href.example)' | jq 'del (.example)' | 
+                jq 'del(.properties.conformsTo)' | jq 'del (."$schema")' | 
+                jq '.properties.conformsTo += {"type":"array","items":{"type":"string"},"contains":{"const":"http://wis.wmo.int/spec/wnm/1/conf/core"},"uniqueItems":true}' > wis2-notification-message.json
+
+      - name: Delete temp files
+        run: |
+          rm wis2-notification-message-bundled.json
+          
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update changed files
